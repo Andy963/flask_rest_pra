@@ -5,10 +5,6 @@ from apps.app import create_app
 
 app = create_app()
 
-
-
-
-
-
 if __name__ == '__main__':
-    app.run(debug=True,port=8000)
+    print(app.url_map)
+    app.run(debug=True, port=8000)
