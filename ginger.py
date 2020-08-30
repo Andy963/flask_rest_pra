@@ -6,15 +6,9 @@ from apps.app import create_app
 app = create_app()
 
 
-@app.route("/v1/user/get/")
-def get_user():
-    return "I'm andy"
 
 
-@app.route("/v1/book/get/")
-def get_book():
-    return "Book"
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=8000)
