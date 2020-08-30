@@ -24,7 +24,7 @@ def create_client():
 
 
 def __register_user_by_email():
-    form = UserEmailForm().validate_for_api()
+    form = UserEmailForm(data=request.json)
     User.register_by_email(form.nickname.data,
                            form.account.data,
                            form.secret.data)
