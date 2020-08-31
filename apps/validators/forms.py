@@ -1,15 +1,16 @@
 # ！/usr/bin/env python
 # encoding:utf-8
 # Created by Andy at 2020/8/30
-from wtforms import Form, StringField, IntegerField
+from wtforms import StringField, IntegerField
 from wtforms.validators import Length, InputRequired, Email, Regexp, length, ValidationError, DataRequired
 
 from apps.libs.enums import ClientType
 from apps.models.user import User
+from apps.validators.base import BaseForm as Form
 
 
 class ClientForm(Form):
-    account = StringField(validators=[DataRequired(), Length(min=5, max=32)])
+    account = StringField(validators=[DataRequired(message="account不允许为空"), Length(min=5, max=32)])
     secret = StringField()
     type = IntegerField(validators=[DataRequired()])
 
