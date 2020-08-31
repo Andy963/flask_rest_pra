@@ -1,26 +1,23 @@
 # ！/usr/bin/env python
 # encoding:utf-8
 # Created by Andy at 2020/8/30
-from flask import Flask
+
+from flask import Flask as _Flask
+from flask.json import JSONEncoder as _JSONEncoder
+
+from datetime import date
+
+from apps.libs.error_code import ServerError
 
 
-def register_blueprints(app):
-    from apps.api.v1 import create_blueprint_v1
-    app.register_blueprint(create_blueprint_v1(), url_prefix='/v1/')
+class JSONEncoder(_JSONEncoder):
+    def default(self, o):
+        if hasattr(o, 'keys') and hasattr(o, '__getitem__'):
+            return dict(o)
+        if isinstance(o, date):
+            return o.strftime('%Y-%m-%d')
+        raise ServerError()
 
 
-def register_plugin(app):
-    from apps.models.base import db
-    db.init_app(app)
-    with app.app_context():
-        db.create_all()
-
-
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object("apps.config.secure")
-    app.config.from_object("apps.config.setting")
-
-    register_blueprints(app)
-    register_plugin(app)
-    return app
+class Flask(_Flask):
+    json_encoder = JSONEncoder

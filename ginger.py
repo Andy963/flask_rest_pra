@@ -3,7 +3,7 @@
 # Created by Andy at 2020/8/30
 from http.client import HTTPException
 
-from apps.app import create_app
+from apps import create_app
 from apps.libs.error import APIException
 from apps.libs.error_code import ServerError
 
