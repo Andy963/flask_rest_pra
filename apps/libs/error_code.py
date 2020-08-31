@@ -20,3 +20,9 @@ class ParameterException(APIException):
     code = 400
     msg = 'invalid parameter'
     error_code = 1000
+
+
+class ServerError(APIException):
+    code = 500
+    msg = 'sorry, we made a mistake (*￣︶￣)!'
+    error_code = 999
